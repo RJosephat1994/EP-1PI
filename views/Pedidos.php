@@ -1,5 +1,5 @@
 <?php
-	include_once("controllers/ProductsController.php");
+	require_once("../controllers/PedidoController.php");
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- my css file -->
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
   </head>
   <body>
     <!-- header -->
@@ -53,68 +53,87 @@
       </nav>
     </header>
     <div class="video-container">
-      <video class="video" src="./public/video.mp4" autoplay loop="">
+      <video class="video" src="../public/video.mp4" autoplay loop="">
       </video>
     </div>
 	<div clas="front absolute card col-xs-12">
 
 	</div>
+
     <!-- FORMULARIO PARA INGRESAR PRODUCTOS -->
-    <div class="video-container vertical-center">
-      <div class="front absolute card col-xs-12">
-				<select class="form-control" name="">
+    <br><br><br><br>
+    <div class="video-container ">
+      <div class="front absolute card col-xs-5">
 
-					<?php
-						foreach ($productos as $producto) {
-						?>
-						<option value=""><?php echo $producto['nombre']; ?></option>
-						<?php }
-					?>
-				</select>
+        <h2 class ="white-text">Haz tu Pedido</h2>
+        <input type="button" class="form-control" id="crearpedido" value="Presiona para Realizar tu pedido">
 
-        <h2 class ="white-text">Registrar nuevo producto</h2>
-        <input type="text" class="form-control" id="nombre" value="" placeholder="Escribe el nombre del producto "><br>
-        <input type="number" class="form-control" id="precio" value="" placeholder="Escribe el precio del producto "><br>
-        <select id="categoria" class="form-control" name="">
-					<option value="1">Pizzas</option>
-					<option value="2">Pastas</option>
-					<option value="3">Ensaladas</option>
-        	<option value="4">Bebidas</option>
-        </select><br>
-				<textarea class="form-control" id="descripcion"></textarea>
-				<br>
+        <div class="container col-xs-12" style="visibility:hidden;"id="cajita">
+          <p style="color:white;"> selecciona tu producto</p>
+  <select class="form-control" name="producto" >
 
-        <button type="button" class="form-control" id="guardar">Guardar producto</button>
+    <?php
+      foreach ($productos as $producto) {
+      ?>
+      <option value=""><?php echo $producto['nombre']; ?></option>
+      <?php }
+    ?>
+
+  </select>
+  <p style="color:white;"> cantidad</p>
+   <input type="number" name="cantidad" class="form-control" value="">
+   <br>
+        <input type="button" name="" class="form-control" value=" Guardar en el carrito">
+
+        </div>
+
       </div>
     </div>
 
     <!-- container -->
-    <script src="./assets/js/script.js" charset="utf-8"></script>
+    <script src="../assets/js/Pedido.js" charset="utf-8"></script>
     <script type="text/javascript">
-      let guardar = document.querySelector("#guardar");
-      guardar.addEventListener('click',function(){
-        let nombre = document.querySelector("#nombre");
-        let precio = document.querySelector("#precio");
-				let categoria = document.querySelector("#categoria");
-        let descripcion = document.querySelector("#descripcion");
+guardar= document.querySelector("#asf");
+try {
+  guardar.addEventListener('click',function(){
+
+    let nombre = document.querySelector("#nombre");
+    let precio = document.querySelector("#precio");
+    let categoria = document.querySelector("#categoria");
+    let descripcion = document.querySelector("#descripcion");
 
 
 
-        let producto = new Producto(nombre.value,precio.value,categoria.value,descripcion.value);
-				let listaproductos = new Array();
-				listaproductos.push(producto);
-				let arregloJSON = JSON.stringify(listaproductos);
-				console.log(arregloJSON);
-				$.ajax({
-				  method: "POST",
-				  url: "controllers/ProductsController.php",
-				  data: { productos: arregloJSON, funcion: "insertarProductos" }
-				})
-				.done(function() {
-				   console.log( "Datos guardados ");
-				 });
-      });
+    let producto = new Producto(nombre.value,precio.value,categoria.value,descripcion.value);
+    let listaproductos = new Array();
+    listaproductos.push(producto);
+    let arregloJSON = JSON.stringify(listaproductos);
+    console.log(arregloJSON);
+    $.ajax({
+      method: "POST",
+      url: "../controllers/ProductsController.php",
+      data: { productos: arregloJSON, funcion: "insertarProductos" }
+    })
+    .done(function() {
+       console.log( "Datos guardados ");
+     });
+  });
+
+} catch (e) {
+
+} finally {
+
+}
+
 
     </script>
+<script type="text/javascript">
+let   btn=document.querySelector("#crearpedido");
+btn.addEventListener('click', function(){
+  let cajita= document.querySelector("#cajita");
+      cajita.style.visibility="visible";
+});
+
+</script>
   </body>
 </html>

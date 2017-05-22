@@ -6,6 +6,7 @@ Basic structure with MVC design pattern
 This repository was built with the following technologies:
 
   - PHP
+  - AJAX
 
 ## Connect with me
 

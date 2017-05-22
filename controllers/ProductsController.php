@@ -1,24 +1,22 @@
 <?php
-if(isset($_POST['function'])){
-echo "HOLA AJAX".$_POST['function'];
 
-}else{
+if( isset($_POST['funcion']) ) {
+  include_once("../models/Product.php");
+	echo 'Hola AJAX '.$_POST['funcion'];
+	$productos= json_decode($_POST['productos']);
 
-	include_once("models/Model.php");
+
+foreach ($productos as $item) {
+
+
+
+$producto= new Product($item->_nombre,$item->_precio,$item->_categoria,$item->_descripcion);
+	//$producto->save();
+
+	var_dump($list);
 }
 
-
-
-class ProductController {
-	public $model;
-	public function __construct() {
-    $this->model = new Model();
-  }
-	public function index()
-	{
-		$products = $this->model->get();
-		include 'views/products/index.php';
-	}
+} else {
+	include_once("models/Product.php");
+$productos= Product::get();
 }
-
-?>
