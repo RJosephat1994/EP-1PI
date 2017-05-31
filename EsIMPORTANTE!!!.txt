@@ -1,0 +1,14 @@
+PAra navegar por el index
+
+Grupo 8vo A IIF EP1
+Autores:
+Reyes Ordaz JOsephat
+Loranca Lara Octavio
+
+En la esquina superior derecha esta el apartado para el administrador
+
+
+Nota.!!
+el sistema web tiene un error que no afecta su funcionamiento en la pagina de categorias
+* Ademas se debe de terminar el pedido en la barra de navegacion para que se pueda generar uno nuevo
+GRACIAS
