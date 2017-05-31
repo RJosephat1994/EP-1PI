@@ -1,8 +1,10 @@
-class  Producto{
-  constructor(fecha,cliente,estado){
+class  Pedido{
+  constructor(nombre,direccion,telefono,fecha){
+    this._nombre=nombre;
+    this._direccion=direccion
+    this._telefono=telefono;
     this._fecha=fecha;
-    this._cliente = cliente;
-    this._estado = estado;
+
 
   }
   get fecha(){
@@ -11,17 +13,25 @@ class  Producto{
   set fecha(fecha){
     this._fecha=fecha;
   }
-  get cliente(){
-    return this._cliente;
+  get nombre(){
+    return this._nombre;
   }
-  set cliente(cliente){
-    this._cliente=cliente;
+  set cliente(nombre){
+    this._nombre=nombre;
   }
-  get estado(){
-    return this._estado;
+  get direccion(){
+    return this._direccion;
   }
-  set estado(estado){
-    this._estado=estado;
+  set estado(direccion){
+    this._direccion=direccion;
+  }
+  get telefono(){
+
+    return this._telefono;
+  }
+  set telefono(telefono){
+
+    this._telefono=telefono;
   }
 
 }

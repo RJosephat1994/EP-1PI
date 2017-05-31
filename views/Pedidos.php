@@ -20,16 +20,20 @@
   <body>
     <!-- header -->
     <header>
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
+					<h3 style ="color:white;">La pizza loca </h3>
+						<div class="navbar-header">
+
+
+							<a href="#">Mi info</a>
+							<a href="#">Mi Pedido</a>
+							<a href="#">Terminar Pedido</a>
+							<a style="color:white;font-size:20px;"href="#">Mi saldo:$ 0.000</a>
+						</div>
+
+
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,7 +72,7 @@
         <h2 class ="white-text">Haz tu Pedido</h2>
         <input type="button" class="form-control" id="crearpedido" value="Presiona para Realizar tu pedido">
 
-        <div class="container col-xs-12" style="visibility:hidden;"id="cajita">
+        <div class="container col-xs-12 " style="visibility:hidden;"id="cajita">
           <p style="color:white;"> selecciona tu producto</p>
   <select class="form-control" name="producto" >
 

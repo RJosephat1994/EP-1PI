@@ -1,7 +1,7 @@
 <?php
 session_start();
-	include_once("controllers/ProductsController.php");
-	include_once("controllers/Catego.php");
+	include_once("../controllers/ProductsController.php");
+	include_once("../controllers/Catego.php");
 $_SESSION['arreProd']=$productos;
 
 
@@ -22,8 +22,8 @@ $saldo=0;
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- my css file -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-		<link rel="stylesheet" href="./assets/css/estil.css">
+    <link rel="stylesheet" href="./.assets/css/style.css">
+		<link rel="stylesheet" href="../assets/css/estil.css">
   </head>
   <body >
     <!-- header -->
@@ -61,101 +61,121 @@ $saldo=0;
 	<div clas="front absolute card col-xs-12">
 
 	</div>
-    <!-- FORMULARIO PARA INGRESAR PRODUCTOS -->
-<?php
-		if(isset($_SESSION['iniciada'])){
+   
 
-?>
-<div class="video-container vertical-center" id="cajaPrinc">
-			<div class="front absolute card2 col-xs-8" id="tablaPedidos" style="visibility:visible;">
-
-				<h2 class ="white-text"> Elije una categoria</h2>
+	
 
 
-				<ul class="caption-style-1">
+  <?php
+require_once '../controllers/control.php';
+require_once '../models/modelp.php';
 
-				<li>
-					<a href="views/Categorias.php?opc=1" id="pizzascate">
-						<img src="public/pizza.png" alt=""width="250" height="250">
-						<div class="caption">
-							<div class="blur"></div>
-							<div class="caption-text">
-								<h1>Pizzas </h1>
-								<p>Variedad de especialidades</p>
-							</div>
-						</div>
-					</a>
+// Logica
+$alm = new product();
+$model = new ProductModel();
 
-				</li>
-				<li>
-					<a href="views/Categorias.php?opc=2" id="hamcate">
-					<img src="public/hamburguesa.png" alt=""width="250" height="250">
-					<div class="caption">
-						<div class="blur"></div>
-						<div class="caption-text">
-							<h1>Hamburguesas  </h1>
-							<p>Conoce La megaHam!</p>
-						</div>
-					</div>
-				</a>
-				</li>
-				<li>
-					<a href="views/Categorias.php?opc=4" id="bebidascate">
-					<img src="public/bebidas.png" alt=""width="250" height="250">
-					<div class="caption">
-						<div class="blur"></div>
-						<div class="caption-text">
-							<h1>Bebidas  </h1>
-							<p>Refrescánte!</p>
-						</div>
-					</div>
-				</a>
-				</li>
-				<li>
-					<a href="views/Categorias.php?opc=3" id="postrescate">
-					<img src="public/postre.png" alt=""width="250" height="250">
-					<div class="caption">
-						<div class="blur"></div>
-						<div class="caption-text">
-							<h1>Postres </h1>
-							<p>Un toque de dulce</p>
-						</div>
-					</div>
-				</a>
-				</li>
-			</ul>
+if(isset($_REQUEST['action']))
+{
+	switch($_REQUEST['action'])
+	{
+		case 'actualizar':
+     $alm->__SET('id',              $_REQUEST['id']);
+     $alm->__SET('Nombre',          $_REQUEST['Nombre']);
+     $alm->__SET('Descripcion',        $_REQUEST['Descripcion']);
+     $alm->__SET('Precio',            $_REQUEST['Precio']);
+     $alm->__SET('Categoria_id', $_REQUEST['Categoria_id']);
 
-			</div>
-		</div>
-<?php
+     $model->Actualizar($alm);
+     header('Location: product.php');
+     break;
 
-		}else{
+     case 'registrar':
+     $alm->__SET('Nombre',          $_REQUEST['Nombre']);
+     $alm->__SET('Descripcion',        $_REQUEST['Descripcion']);
+     $alm->__SET('Precio',            $_REQUEST['Precio']);
+     $alm->__SET('Categoria_id', $_REQUEST['Categoria_id']);
 
+     $model->Registrar($alm);
+     header('Location: product.php');
+     break;
+
+     case 'eliminar':
+     $model->Eliminar($_REQUEST['id']);
+     header('Location: product.php');
+     break;
+
+     case 'editar':
+     $alm = $model->Obtener($_REQUEST['id']);
+     break;
+ }
+}
 
 ?>
 
 
+<a href="../index.php" class="btn btn-info" type="button">Regresar</a>
 
-    <div class="video-container vertical-center" id="cajaPrinc">
-      <div class="front absolute card col-xs-12" id="cajaRegPed">
+    
+        <div class="pure-u-1-12">
 
+            <form action="?action=<?php echo $alm->id > 0 ? 'actualizar' : 'registrar'; ?>" method="post" class="pure-form pure-form-stacked" style="margin-bottom:30px;">
+                <input type="hidden" name="id" value="<?php echo $alm->__GET('id'); ?>" />
 
-        <h2 class ="white-text">La Pizza-Loca</h2>
-        <input type="text" class="form-control" id="nombre" value="" placeholder="Ingresa tu nombre"><br>
-        <input type="text" class="form-control" id="direccion" value="" placeholder="Escribe Tu dirección "><br>
-		<p style="color:white;">Ingresa tu telefono</p>
-				  <input type="number" class="form-control" id="telefono" value="" placeholder="777- "><br>
-    	<br>
+                <table style="width:500px;">
+                    <tr>
+                        <th style="text-align:left;">Nombre</th>
+                        <td><input type="text" name="Nombre" value="<?php echo $alm->__GET('Nombre'); ?>" style="width:100%;" /></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">Descripcion</th>
+                        <td><input type="text" name="Descripcion" value="<?php echo $alm->__GET('Descripcion'); ?>" style="width:100%;" /></td>
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">Precio</th>  
+                      <td><input type="text" name="Precio" value="<?php echo $alm->__GET('Precio'); ?>" style="width:100%;" /></td>
+                    
+                    </tr>
+                    <tr>
+                        <th style="text-align:left;">categoria</th>
+                        <td><input type="text" name="Categoria_id" value="<?php echo $alm->__GET('Categoria_id'); ?>" style="width:100%;" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" class="pure-button pure-button-primary">Guardar</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
 
-        <button type="button" class="form-control" id="guardar">Comenzar Pedido :)</button>
+            <table class="pure-table pure-table-horizontal">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Nombre</th>
+                        <th style="text-align:left;">Descripcion</th>
+                        <th style="text-align:left;">Precio</th>
+                        <th style="text-align:left;">categoria</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <?php foreach($model->Listar() as $r): ?>
+                    <tr>
+                        <td><?php echo $r->__GET('Nombre'); ?></td>
+                        <td><?php echo $r->__GET('Descripcion'); ?></td>
+                        <td><?php echo $r->__GET('Precio') ; ?></td>
+                        <td><?php echo $r->__GET('Categoria_id'); ?></td>
+                        <td>
+                            <a href="?action=editar&id=<?php echo $r->id; ?>">Editar</a>
+                        </td>
+                        <td>
+                            <a href="?action=eliminar&id=<?php echo $r->id; ?>">Eliminar</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table> 
+            </div>
 
-      </div>
-			<?php
-		}
-				$_SESSION['iniciada']=true;
-
-
-		?>
+      
 
 <!-- Tabla de pedidos-->
 			<div class="front absolute card2 col-xs-8" id="tablaPedidos" style="visibility:hidden;">

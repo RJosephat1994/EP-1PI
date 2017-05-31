@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
@@ -72,7 +72,7 @@ INSERT INTO `cliente` (`id`, `nombre`, `direccion`, `telefono`) VALUES
 CREATE TABLE `pedido` (
   `id` int(11) NOT NULL,
   `fecha` datetime(6) DEFAULT NULL,
-  `cliente_id` int(11) DEFAULT NULL,
+  `cliente` text DEFAULT NULL,
   `estado` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -195,15 +195,7 @@ ALTER TABLE `pedido_producto`
 --
 ALTER TABLE `producto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `pedido_producto`
